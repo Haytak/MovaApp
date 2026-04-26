@@ -1,0 +1,466 @@
+<Window x:Class="Mova.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Mova App" Height="25" Width="35"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Topmost="True" IsHitTestVisible="False"
+        SourceInitialized="Window_SourceInitialized">
+    <Window.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="FadeOutStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.5"/>
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+        <Border x:Name="FlagBorder" CornerRadius="2" Background="Transparent" Opacity="0" Width="20" Height="14" SnapsToDevicePixels="True">
+            <Grid x:Name="FlagContainer">
+                <!-- Україна -->
+                <Grid x:Name="UAFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#0057B7" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#FFD700" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Британія (EN) -->
+                <Grid x:Name="ENFlag" Visibility="Collapsed">
+                    <Border Background="#012169" CornerRadius="1"/>
+                    <Path Data="M0,0 L20,14 M0,14 L20,0" Stroke="White" StrokeThickness="2"/>
+                    <Path Data="M0,0 L20,14 M0,14 L20,0" Stroke="#C8102E" StrokeThickness="1"/>
+                    <Path Data="M10,0 L10,14 M0,7 L20,7" Stroke="White" StrokeThickness="3"/>
+                    <Path Data="M10,0 L10,14 M0,7 L20,7" Stroke="#C8102E" StrokeThickness="2"/>
+                </Grid>
+
+                <!-- Іспанія -->
+                <Grid x:Name="ESFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#AA151B" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#F1BF00"/>
+                    <Border Grid.Row="2" Background="#AA151B" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Німеччина -->
+                <Grid x:Name="DEFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#000000" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#DD0000"/>
+                    <Border Grid.Row="2" Background="#FFCE00" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Японія -->
+                <Grid x:Name="JAFlag" Visibility="Collapsed">
+                    <Border Background="White" CornerRadius="1"/>
+                    <Ellipse Fill="#BC002D" Width="8" Height="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Чехія -->
+                <Grid x:Name="CSFlag" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Grid.Column="1" Background="White" CornerRadius="0,1,0,0"/>
+                    <Border Grid.Row="1" Grid.Column="1" Background="#D7141A" CornerRadius="0,0,1,0"/>
+                    <Path Grid.RowSpan="2" Grid.ColumnSpan="2" Data="M0,0 L10,7 L0,14 Z" Fill="#11457E"/>
+                </Grid>
+
+                <!-- Франція -->
+                <Grid x:Name="FRFlag" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#002395" CornerRadius="1,0,0,1"/>
+                    <Border Grid.Column="1" Background="White"/>
+                    <Border Grid.Column="2" Background="#ED2939" CornerRadius="0,1,1,0"/>
+                </Grid>
+
+                <!-- Італія -->
+                <Grid x:Name="ITFlag" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#009246" CornerRadius="1,0,0,1"/>
+                    <Border Grid.Column="1" Background="White"/>
+                    <Border Grid.Column="2" Background="#CE2B37" CornerRadius="0,1,1,0"/>
+                </Grid>
+
+                <!-- Польща -->
+                <Grid x:Name="PLFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="White" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#DC143C" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Китай -->
+                <Grid x:Name="ZHFlag" Visibility="Collapsed">
+                    <Border Background="#EE1C25" CornerRadius="1"/>
+                    <Path Data="M3,3 L4,6 L2,4 L5,4 L3,6 Z" Fill="#FFFF00" Stretch="Fill" Width="4" Height="4" Margin="2,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Grid>
+
+                <!-- Бразилія -->
+                <Grid x:Name="BRFlag" Visibility="Collapsed">
+                    <Border Background="#009739" CornerRadius="1"/>
+                    <Path Data="M10,2 L18,7 L10,12 L2,7 Z" Fill="#FEDD00"/>
+                    <Ellipse Fill="#012169" Width="4" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Португалія -->
+                <Grid x:Name="PTFlag" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#006600" CornerRadius="1,0,0,1"/>
+                    <Border Grid.Column="1" Background="#FF0000" CornerRadius="0,1,1,0"/>
+                </Grid>
+
+                <!-- Корея -->
+                <Grid x:Name="KOFlag" Visibility="Collapsed">
+                    <Border Background="White" CornerRadius="1"/>
+                    <Ellipse Width="6" Height="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#CD2E3A" Offset="0.5"/>
+                                <GradientStop Color="#0047A0" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+
+                <!-- Нідерланди -->
+                <Grid x:Name="NLFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#AE1C28" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="White"/>
+                    <Border Grid.Row="2" Background="#21468B" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Туреччина -->
+                <Grid x:Name="TRFlag" Visibility="Collapsed">
+                    <Border Background="#E30A17" CornerRadius="1"/>
+                    <Ellipse Fill="White" Width="6" Height="6" Margin="4,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Ellipse Fill="#E30A17" Width="5" Height="5" Margin="5.5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Фінляндія -->
+                <Grid x:Name="FIFlag" Visibility="Collapsed">
+                    <Border Background="White" CornerRadius="1"/>
+                    <Path Data="M0,5 L20,5 M7,0 L7,14" Stroke="#003580" StrokeThickness="3"/>
+                </Grid>
+
+                <!-- Данія -->
+                <Grid x:Name="DAFlag" Visibility="Collapsed">
+                    <Border Background="#C60C30" CornerRadius="1"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="White" StrokeThickness="2"/>
+                </Grid>
+
+                <!-- Румунія -->
+                <Grid x:Name="ROFlag" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#002B7F" CornerRadius="1,0,0,1"/>
+                    <Border Grid.Column="1" Background="#FCD116"/>
+                    <Border Grid.Column="2" Background="#CE1126" CornerRadius="0,1,1,0"/>
+                </Grid>
+
+                <!-- Грузія -->
+                <Grid x:Name="KAFlag" Visibility="Collapsed">
+                    <Border Background="White" CornerRadius="1"/>
+                    <Path Data="M0,7 L20,7 M10,0 L10,14" Stroke="#FF0000" StrokeThickness="2"/>
+                    <!-- Маленькі хрестики -->
+                    <Path Data="M4,3 L6,3 M5,2 L5,4" Stroke="#FF0000" StrokeThickness="1"/>
+                    <Path Data="M14,3 L16,3 M15,2 L15,4" Stroke="#FF0000" StrokeThickness="1"/>
+                    <Path Data="M4,10 L6,10 M5,9 L5,11" Stroke="#FF0000" StrokeThickness="1"/>
+                    <Path Data="M14,10 L16,10 M15,9 L15,11" Stroke="#FF0000" StrokeThickness="1"/>
+                </Grid>
+
+                <!-- Латвія -->
+                <Grid x:Name="LVFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#9E3039" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="White"/>
+                    <Border Grid.Row="2" Background="#9E3039" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Литва -->
+                <Grid x:Name="LTFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FFB81C" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#046A38"/>
+                    <Border Grid.Row="2" Background="#BE3A34" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Естонія -->
+                <Grid x:Name="ETFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#0072CE" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#000000"/>
+                    <Border Grid.Row="2" Background="White" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Кримсько-татарський -->
+                <Grid x:Name="CRHFlag" Visibility="Collapsed">
+                    <Border Background="#00AEEF" CornerRadius="1"/>
+                    <!-- Тамга -->
+                    <Path Data="M3,3 L3,7 M3,7 L7,7 M7,7 L7,3 M5,3 L5,5" Stroke="#F1C40F" StrokeThickness="1" Margin="2,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Grid>
+
+                <!-- Хінді (Індія) -->
+                <Grid x:Name="HIFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF9933" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#FFFFFF"/>
+                    <Border Grid.Row="2" Background="#128807" CornerRadius="0,0,1,1"/>
+                    <Ellipse Grid.Row="1" Stroke="#000080" StrokeThickness="0.5" Width="4" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Арабська (Саудівська Аравія) -->
+                <Grid x:Name="ARFlag" Visibility="Collapsed">
+                    <Border Background="#006C35" CornerRadius="1"/>
+                    <Path Data="M4,7 L16,7 M6,6 L14,6" Stroke="White" StrokeThickness="0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,0"/>
+                </Grid>
+
+                <!-- Швеція -->
+                <Grid x:Name="SVFlag" Visibility="Collapsed">
+                    <Border Background="#006AA7" CornerRadius="1"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="#FECC00" StrokeThickness="3"/>
+                </Grid>
+
+                <!-- Норвегія -->
+                <Grid x:Name="NOFlag" Visibility="Collapsed">
+                    <Border Background="#BA0C2F" CornerRadius="1"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="White" StrokeThickness="3"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="#00205B" StrokeThickness="1.5"/>
+                </Grid>
+
+                <!-- Словаччина -->
+                <Grid x:Name="SKFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="White" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#0B4EA2"/>
+                    <Border Grid.Row="2" Background="#EE1C25" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Угорщина -->
+                <Grid x:Name="HUFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#CE1126" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="White"/>
+                    <Border Grid.Row="2" Background="#477050" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Таїланд -->
+                <Grid x:Name="THFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#ED1C24" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="White"/>
+                    <Border Grid.Row="2" Background="#242A72"/>
+                    <Border Grid.Row="3" Background="White"/>
+                    <Border Grid.Row="4" Background="#ED1C24" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- В'єтнам -->
+                <Grid x:Name="VIFlag" Visibility="Collapsed">
+                    <Border Background="#DA251D" CornerRadius="1"/>
+                    <Path Data="M10,4 L11.2,7.5 L14.5,7.5 L11.8,9.5 L12.8,13 L10,11 L7.2,13 L8.2,9.5 L5.5,7.5 L8.8,7.5 Z" Fill="#FFFF00" HorizontalAlignment="Center" VerticalAlignment="Center" Width="8" Height="8" Stretch="Uniform"/>
+                </Grid>
+
+                <!-- Індонезія -->
+                <Grid x:Name="IDFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF0000" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Греція -->
+                <Grid x:Name="ELFlag" Visibility="Collapsed">
+                    <Border Background="#0D5EAF" CornerRadius="1"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="1" Background="White"/><Border Grid.Row="3" Background="White"/><Border Grid.Row="5" Background="White"/><Border Grid.Row="7" Background="White"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="8" Height="8" Background="#0D5EAF">
+                        <Path Data="M0,4 L8,4 M4,0 L4,8" Stroke="White" StrokeThickness="1.5"/>
+                    </Grid>
+                </Grid>
+
+                <!-- Ізраїль -->
+                <Grid x:Name="HEFlag" Visibility="Collapsed">
+                    <Border Background="White" CornerRadius="1"/>
+                    <Border Height="2" Background="#0038B8" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                    <Border Height="2" Background="#0038B8" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+                    <Path Data="M10,4 L12,8 L8,8 Z M10,10 L12,6 L8,6 Z" Stroke="#0038B8" StrokeThickness="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Болгарія -->
+                <Grid x:Name="BGFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="White" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#00966E"/>
+                    <Border Grid.Row="2" Background="#D62612" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Казахстан -->
+                <Grid x:Name="KZFlag" Visibility="Collapsed">
+                    <Border Background="#00B2D4" CornerRadius="1"/>
+                    <Ellipse Fill="#FEC600" Width="4" Height="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Path Data="M4,7 L16,7" Stroke="#FEC600" StrokeThickness="0.5" VerticalAlignment="Center" Margin="0,3,0,0"/>
+                </Grid>
+
+                <!-- Вірменія -->
+                <Grid x:Name="HYFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF3300" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#003399"/>
+                    <Border Grid.Row="2" Background="#FF9900" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Азербайджан -->
+                <Grid x:Name="AZFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#00B9E4" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#EF3340"/>
+                    <Border Grid.Row="2" Background="#509E2F" CornerRadius="0,0,1,1"/>
+                    <Path Grid.Row="1" Data="M10,2 A2,2 0 1 0 10,6 A1.5,1.5 0 1 1 10,6 Z" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-2,0,0,0" Stretch="Uniform" Width="3"/>
+                </Grid>
+
+                <!-- Узбекистан -->
+                <Grid x:Name="UZFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#0099B5" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#CE1126"/>
+                    <Border Grid.Row="2" Background="White"/>
+                    <Border Grid.Row="3" Background="#CE1126"/>
+                    <Border Grid.Row="4" Background="#1EB53A" CornerRadius="0,0,1,1"/>
+                </Grid>
+
+                <!-- Хорватія -->
+                <Grid x:Name="HRFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF0000" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="White"/>
+                    <Border Grid.Row="2" Background="#0000FF" CornerRadius="0,0,1,1"/>
+                    <Border Grid.Row="1" Background="#FF0000" Width="2" Height="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Словенія -->
+                <Grid x:Name="SLFlag" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="White" CornerRadius="1,1,0,0"/>
+                    <Border Grid.Row="1" Background="#0000FF"/>
+                    <Border Grid.Row="2" Background="#FF0000" CornerRadius="0,0,1,1"/>
+                    <Path Grid.RowSpan="2" Data="M3,3 L5,3 L4,1 Z" Fill="#0000FF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Stretch="Uniform" Width="2"/>
+                </Grid>
+
+                <!-- Ісландія -->
+                <Grid x:Name="ISFlag" Visibility="Collapsed">
+                    <Border Background="#003897" CornerRadius="1"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="White" StrokeThickness="3"/>
+                    <Path Data="M0,7 L20,7 M7,0 L7,14" Stroke="#D72828" StrokeThickness="1"/>
+                </Grid>
+
+                <!-- Невідома мова (404) -->
+                <Grid x:Name="NotFoundFlag" Visibility="Collapsed">
+                    <Border Background="#333333" CornerRadius="1"/>
+                    <TextBlock Text="404" Foreground="White" FontSize="8" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Black"/>
+                </Grid>
+
+                <!-- Інші мови будуть відображати EN як fallback -->
+            </Grid>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="4" ShadowDepth="1" Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
+    </Grid>
+</Window>
