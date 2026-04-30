@@ -10,7 +10,6 @@
 ### Features
 - **Smart Tracking**: The flag follows the text cursor in real-time across most applications (Browsers, Word, Notepad, etc.).
 - **Vector Flags**: Beautiful, high-quality vector flags for dozens of languages.
-- **No Russian Support**: Explicitly excludes support for the Russian language.
 - **404 Mode**: Shows a "404" indicator for unsupported layouts.
 - **Auto-startup**: Easily toggle "Run on Windows startup" from the system tray menu.
 - **Lightweight**: Minimal CPU and RAM usage.
